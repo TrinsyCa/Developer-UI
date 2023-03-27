@@ -44,13 +44,19 @@ const profileimgin = document.getElementById('profile-img-in');
 const profileborder = document.getElementById('profile-border');
 const profilenav = document.getElementById('profile-nav');
 const profileinfh4 = document.getElementById('title4');
+const studies = document.getElementById('studies');
+
+const directChildren = studies.children.length;
+const children = directChildren * 90;
+console.log(directChildren);
+console.log(children);
 
 function studiesopen()
 {
    studiebtn.classList.add('active');
    studiebtn2.classList.remove('active');
    
-   links.style.height = '470px';
+   links.style.height = children+"px";
    links.style.maxHeight = '470px';
    links.style.overflowY = 'scroll';
    profileinf.style.paddingTop = '10px';
@@ -82,4 +88,5 @@ function studiesclose()
       profileimgin.style.borderRadius = '';
       profilenav.style.paddingBottom = '';
       profileinfh4.style.paddingBottom = '';
+      links.scrollTo(0 , 0);
 }

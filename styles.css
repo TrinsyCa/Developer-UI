@@ -259,11 +259,11 @@ body {
 }
 .profile-border:hover .links
 {
-   height: 160px;
+   height: 150px;
 }
 .profile-border:hover .links:hover
 {
-   height: 180px;
+   height: 175px;
 }
 .studies
 {

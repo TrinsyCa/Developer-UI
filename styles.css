@@ -32,9 +32,11 @@ body {
 }
 .main
 {
-   height: 100vh;
+   width: 100%;
+   height: 100%;
    display: flex;
    align-items: center;
+   justify-content: center;
 }
 .profile-border {
    width: 550px;
@@ -96,10 +98,7 @@ body {
    object-position: center;
 }
 
-.profile-border:hover .profile-img
-{
-   bottom: 16px;
-}
+
 .profile-img {
    bottom: -70px;
    width: 130px;
@@ -148,7 +147,7 @@ body {
    transform: translate(-50%);
    font-size: 72px;
    display: inline-block;
-   background: linear-gradient(to bottom, #e2985b 20%, black 100%);
+   background: linear-gradient(to bottom, #e2985b 20%, rgba(0, 0, 0, 0.5) 100%);
    -webkit-background-clip: text;
    -webkit-text-fill-color: transparent;
    font-weight: bold;
@@ -193,8 +192,6 @@ body {
    transition: all .5s;
    padding-bottom: 15px;
 }
-@media (hover: hover) {
-
    .profile-border:hover {
       padding: 0;
    }
@@ -204,6 +201,7 @@ body {
       height: 200px;
       border-radius: 25%;
       transition: all .4s;
+      bottom: 16px;
    }
 
    .profile-border:hover .profile-img img {
@@ -219,25 +217,24 @@ body {
    }
 
    .insta:hover {
-      box-shadow: 0 0 30px 15px rgba(120, 64, 190, 1);
+      box-shadow: 0 0 20px 15px rgba(120, 64, 190, 1);
    }
 
    .twitter:hover {
-      box-shadow: 0 0 30px 10px rgba(19, 127, 212, 1);
+      box-shadow: 0 0 20px 10px rgba(19, 127, 212, 1);
    }
 
    .github:hover {
-      box-shadow: 0 0 30px 10px rgba(63, 65, 67, 1);
+      box-shadow: 0 0 20px 10px rgb(46, 48, 49);
    }
 
    .discord:hover {
-      box-shadow: 0 0 30px 10px rgba(34, 120, 233, 1);
+      box-shadow: 0 0 20px 10px rgba(34, 120, 233, 1);
    }
 
    .lol:hover {
-      box-shadow: 0 0 30px 10px #c0975e;
+      box-shadow: 0 0 20px 10px #c0975e;
    }
-}
 .links
 {
    box-shadow: 0 0 50px 0px black;
@@ -255,7 +252,18 @@ body {
 }
 .links::-webkit-scrollbar
 {
-   width: 0;
+   width: 6px;
+}
+.links::-webkit-scrollbar-thumb
+{
+   background-color: rgba(255, 255, 255, 0.28);
+   border-radius: 10px;
+}
+.links::-webkit-scrollbar-track
+{
+   border-radius: 10px;
+   margin-bottom: 2.5em;
+   margin-top: 5em;
 }
 .profile-border:hover .links
 {
@@ -278,7 +286,7 @@ body {
    font-size: 26px;
    border-radius: 17px;
    padding: 16px 12px;
-   transition: 0.25s;
+   transition: 0.2s;
    opacity: 0;
    width: 100%;
    display: flex;
@@ -286,6 +294,7 @@ body {
    justify-content: baseline;
    background: linear-gradient(to right, #7b00ff7a, #e63b3e7a);
    position: relative;
+   cursor: pointer;
 }
 .study label
 {
@@ -293,10 +302,12 @@ body {
    top: 50%;
    left: 50%;
    transform: translate(-50%,-50%);
+   width: 75%;
+   cursor: pointer;
 }
 .studies .study:hover
 {
-   box-shadow: 0 0 8px 4px rgba(0, 0, 0, 0.4);
+   box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.5);
 }
 .links .studiesbtn
 {
@@ -322,7 +333,7 @@ body {
 }
 .social-links {
    display: flex;
-   justify-content: space-around;
+   justify-content: space-between;
    align-items: center;
    gap: 30px;
 }
@@ -331,7 +342,7 @@ body {
    align-items: center;
    text-decoration: none;
    color: white;
-   font-size: 23px;
+   font-size: 24px;
    border-radius: 17px;
    padding: 15px;
    transition: all .4s;
@@ -347,7 +358,7 @@ body {
 }
 .github {
    background: linear-gradient(45deg, #333333, #626b73);
-   box-shadow: 0 0 10px 5px rgba(63, 65, 67, 0.7);
+   box-shadow: 0 0 10px 5px rgba(63, 65, 67, 1);
 }
 .discord {
    background: linear-gradient(45deg, #7289DA, #4682B4, #4682B4, #191970);
@@ -363,33 +374,49 @@ body {
 }
 @media (max-width:620px) {
    .profile-border {
-      width: 96vw;
+      width: 450px;
       border-radius: 25px;
       padding: 5px;
+   }
+   .links
+   {
+      height: 175px;
    }
    .cursor
    {
       display: none;
    }
 
-   .profile-card {
-      width: 96vw;
-      height: 100%;
-   }
-
    .social-links {
       gap: 10px;
    }
-
-   .social-links a {
-      font-size: 18px;
+   .profile-border
+   {
+      padding: 0;
    }
-
-   .lol img {
-      width: 18px;
+   .profile-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 25%;
+      transition: all .4s;
+      bottom: 16px;
    }
-
+   .profile-img img {
+      border-radius: 25%;
+   }
+   .profile-nav
+   {
+      padding-bottom: 0;
+   }
+   .profile-border:hover .links
+   {
+      height: 175px;
+   }
+   .profile-inf {
+      padding-top: 20px;
+   }
    .profile-inf .username h1 {
+      padding-top: 10px;
       font-size: 64px;
    }
 
@@ -400,7 +427,10 @@ body {
    .profile-detail h3 {
       font-size: 32px;
    }
-
+   .profile-detail h4
+   {
+      padding-bottom: 0;
+   }
    .profile-detail {
       gap: 27px;
    }
@@ -408,36 +438,44 @@ body {
 @media (max-width:450px)
 {
    .profile-border {
-      width: 96vw;
-      height: 650px;
-      border-radius: 25px;
-      padding: 5px;
+      width: 98%;
    }
-
-   .profile-card {
-      width: 96vw;
-      height: 100%;
-   }
-
-   .profile-banner {
-      height: 150px;
-   }
-
-   .profile-img-bg
+   .main
    {
-      height: 150px;
+      padding-bottom: 15px;
    }
-
-   .profile-img {
-      top: 80px;
-      width: 115px;
-      height: 115px;
+   .social-links a
+   {
+      font-size: 19px;
+   }
+   .lol img
+   {
+      width: 19px;
+   }
+}
+@media (max-width:350px)
+{
+   .social-links
+   {
+      gap: 0;
+   }
+   .social-links a
+   {
+      font-size: 16px;
+   }
+   .lol img
+   {
+      width: 16px;
+   }
+   .links
+   {
+      height: 100px;
    }
 }
 .cursor
 {
    z-index: 5000;
-   background-color: #d33638;
+   background-color: #d33639e0;
    width: 20px;
    height: 20px;
    border-radius: 50%;
@@ -465,14 +503,14 @@ body {
    content: '';
    position: absolute;
    background-color: #d33638;
-   width: 50px;
-   height: 50px;
+   width: 45px;
+   height: 45px;
    opacity: 0.4;
    transform: translate(-30%,-30%);
    border-radius: 50%;
 }
 
-@keyframes movedown
+@keyframes moveup
 {
    from
    {

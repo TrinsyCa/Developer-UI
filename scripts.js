@@ -32,7 +32,7 @@ if(window.screen.width >= 620)
 //animasyon
 listitems.forEach((item,index) =>
 {
-   item.style.animation = `movedown 0.65s ease-in-out forwards ${index / 5}s`;
+   item.style.animation = `moveup 0.6s ease-in-out forwards ${index / 5}s`;
 })
 
 var studiebtn = document.getElementById("studiebtn");
@@ -43,7 +43,7 @@ const profileimg = document.getElementById('profile-img');
 const profileimgin = document.getElementById('profile-img-in');
 const profileborder = document.getElementById('profile-border');
 const profilenav = document.getElementById('profile-nav');
-const profileinfh4 = document.getElementById('title4');
+const profileinfh4 = document.getElementById('title-4');
 const studies = document.getElementById('studies');
 
 const directChildren = studies.children.length;
@@ -58,7 +58,7 @@ function studiesopen()
    
    links.style.height = children+"px";
    links.style.maxHeight = '470px';
-   links.style.overflowY = 'scroll';
+   links.style.overflowY = 'overlay';
    profileinf.style.paddingTop = '10px';
    profileinf.style.top = '19%';
    profileimg.style.bottom = '16px';
@@ -68,8 +68,7 @@ function studiesopen()
    profileimg.style.borderRadius = '25%';
    profileimgin.style.borderRadius = '25%';
    profilenav.style.paddingBottom = '0';
-   profileinfh4.style.paddingBottom = '10px';
-   
+   profileinfh4.style.paddingBottom = '0';
 }
 function studiesclose()
 {

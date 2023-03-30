@@ -6,14 +6,23 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link rel="shortcut icon" href="php-icon.jpg">
    <title>PHP Öğrenim | TrinsyCa</title>
+
+   <!-- Google Fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com" />
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+   <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet" />
+   <!-- END Google Fonts-->
+   
    <style>
       body
       {
          background: rgb(70, 70, 70);
+         font-family: 'Varela Round', sans-serif;
       }
       .projects
       {
          background: rgba(0, 0, 0, 0.5);
+         box-shadow: 0 15px 50px rgba(0, 0, 0, 1);
          border-radius: 35px;
          position: absolute;
          top: 50%;
@@ -22,8 +31,9 @@
          display: flex;
          flex-direction: column;
          text-align: center;
-         gap: 50px;
+         gap: 20px;
          padding: 35px;
+         transition: .3s;
       }
       .projects a
       {
@@ -31,18 +41,29 @@
          text-decoration: underline;
          color: white;
          padding: 10px;
+         font-style: italic;
+         transition: .2s;
       }
       .projects a:hover
       {
-         color: rgba(255, 255, 255, 0.66);
+         color: rgba(255, 255, 255, 0.6);
+      }
+      .projects h1
+      {
+         color: white;
+         font-size: 42px;
       }
    </style>
 </head>
 <body>
    <div class="projects">
+      <h1>PHP Öğrenim | TrinsyCa</h1>
       <a href="faktoriyel.php">Faktöriyel Hesaplama</a>
       <a href="pozitif-negatif.php">Pozitif Sayı - Negatif Sayı Bulma</a>
       <a href="satranc-tahtasi.php">Satranç Tahtası</a>
+      <a href="dizi.php">Aylar</a>
+      <a href="ikiboyutludiziler.php">Rasgele Not</a>
+      <a href="o1.php">Ay Seçimi</a>
    </div>
 </body>
 </html>

@@ -16,13 +16,13 @@
    <style>
       body
       {
-         background: rgb(70, 70, 70);
+         background: linear-gradient(to right, #7b00ff, #e63b3e);
          font-family: 'Varela Round', sans-serif;
       }
       .projects
       {
-         background: rgba(0, 0, 0, 0.5);
-         box-shadow: 0 15px 50px rgba(0, 0, 0, 1);
+         background: linear-gradient(to bottom, #7b00ff7a, #e63b3e7a);
+         box-shadow: 0;
          border-radius: 35px;
          position: absolute;
          top: 50%;
@@ -34,6 +34,19 @@
          gap: 20px;
          padding: 35px;
          transition: .3s;
+         width: max-content;
+         animation: shadowanim 1s ease-in-out infinite;
+      }
+      @keyframes shadowanim
+      {
+         from
+         {
+            box-shadow: 0;
+         }
+         to
+         {
+            box-shadow: 0 0 250px -30px rgba(0, 0, 0, 1);
+         }
       }
       .projects a
       {
@@ -52,6 +65,14 @@
       {
          color: white;
          font-size: 42px;
+      }
+      @media (max-width:550px)
+      {
+         .projects
+         {
+            width: 80%;
+            padding: 25px;
+         }
       }
    </style>
 </head>

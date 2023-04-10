@@ -304,6 +304,7 @@ body {
    transform: translate(-50%,-50%);
    width: 75%;
    cursor: pointer;
+   transition: 0.25s;
 }
 .studies .study:hover
 {
@@ -434,6 +435,10 @@ body {
    .profile-detail {
       gap: 27px;
    }
+   .study label
+   {
+      width: 70%;
+   }
 }
 @media (max-width:450px)
 {
@@ -452,6 +457,12 @@ body {
    {
       width: 19px;
    }
+   .study label
+   {
+      width: 73%;
+      font-size: 20px;
+      left: 54%;
+   }
 }
 @media (max-width:350px)
 {
@@ -469,7 +480,13 @@ body {
    }
    .links
    {
-      height: 100px;
+      height: 173px;
+   }
+   .study label
+   {
+      width: 77%;
+      left: 58%;
+      font-size: 18px;
    }
 }
 .cursor
@@ -481,11 +498,11 @@ body {
    border-radius: 50%;
    position: fixed;
    pointer-events: none;
-   box-shadow: 0 0 20px #d33638,0 0 60px #d33638,0 0 100px #d33638;
-   animation: colors 4s infinite;
+   animation: colors 3s infinite;
    transform: translate(-50%,-50%);
    display: none;
    transition: none;
+   opacity: 0.95;
 }
 @keyframes colors
 {
@@ -503,10 +520,10 @@ body {
    content: '';
    position: absolute;
    background-color: #d33638;
-   width: 45px;
-   height: 45px;
+   width: 42px;
+   height: 42px;
    opacity: 0.4;
-   transform: translate(-30%,-30%);
+   transform: translate(-26%,-26%);
    border-radius: 50%;
 }
 

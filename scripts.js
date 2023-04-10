@@ -48,8 +48,6 @@ const studies = document.getElementById('studies');
 
 const directChildren = studies.children.length;
 const children = directChildren * 90;
-console.log(directChildren);
-console.log(children);
 
 function studiesopen()
 {
@@ -88,4 +86,8 @@ function studiesclose()
       profilenav.style.paddingBottom = '';
       profileinfh4.style.paddingBottom = '';
       links.scrollTo(0 , 0);
+   if(screen.width <= 350)
+   {
+      links.style.height = '170px';
+   }
 }

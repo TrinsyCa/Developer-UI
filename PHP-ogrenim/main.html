@@ -35,31 +35,20 @@
          padding: 35px;
          transition: .3s;
          width: max-content;
-         animation: shadowanim 1s ease-in-out infinite;
-      }
-      @keyframes shadowanim
-      {
-         from
-         {
-            box-shadow: 0;
-         }
-         to
-         {
-            box-shadow: 0 0 250px -30px rgba(0, 0, 0, 1);
-         }
+         box-shadow: 0 0 80px rgba(0, 0, 0, 0.5);
       }
       .projects a
       {
          font-size: 24px;
          text-decoration: underline;
-         color: white;
+         color: rgb(175, 175, 175);
          padding: 10px;
          font-style: italic;
-         transition: .2s;
+         transition: 0.25s;
       }
       .projects a:hover
       {
-         color: rgba(255, 255, 255, 0.6);
+         color: white;
       }
       .projects h1
       {
@@ -70,8 +59,16 @@
       {
          .projects
          {
-            width: 80%;
-            padding: 25px;
+            width: 95%;
+            padding: 25px 5px;
+         }
+         .projects h1
+         {
+            font-size: 28px;
+         }
+         .projects a
+         {
+            font-size: 20px;
          }
       }
    </style>

@@ -107,15 +107,13 @@ body {
    position: relative;
    background: linear-gradient(to right, #e63b3e, #7b00ff, #7b00ff, #7b00ff, #e63b3e);
    padding: 4px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
    box-shadow: 0 0 10px 5px black;
    pointer-events: none;
    transition: all .5s;
 }
 
-.profile-img img {
+.profile-img img
+{
    width: 100%;
    height: 100%;
    border-radius: 100%;
@@ -159,7 +157,7 @@ body {
    left: 50%;
    transform: translate(-50%);
    color: #e2985b;
-   text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black, 0 0 10px black;
+   text-shadow: 0 0 10px black, 0 0 10px black, 0 0 10px black;
    font-weight: bold;
    z-index: 100;
 }
@@ -188,7 +186,7 @@ body {
    font-size: 22px;
    color: #e2985b;
    font-weight: bold;
-   text-shadow: 0 0 4px black;
+   text-shadow: 0 0 10px #e2985b,0 0 5px #e2985b, 0 0 5px black;
    transition: all .5s;
    padding-bottom: 15px;
 }
@@ -204,16 +202,16 @@ body {
       bottom: 16px;
    }
 
-   .profile-border:hover .profile-img img {
+   .profile-border:hover .profile-img img
+   {
       border-radius: 25%;
    }
-
    .profile-border:hover .profile-nav {
       padding-bottom: 0;
    }
 
    .profile-border:hover .profile-inf {
-      padding-top: 20px;
+      padding-top: 25px;
    }
 
    .insta:hover {
@@ -402,7 +400,8 @@ body {
       transition: all .4s;
       bottom: 16px;
    }
-   .profile-img img {
+   .profile-img img
+   {
       border-radius: 25%;
    }
    .profile-nav

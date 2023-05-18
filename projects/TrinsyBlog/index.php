@@ -1,6 +1,7 @@
 <?php
    include("admin/connection.php"); 
    include("admin/linkfunc.php");
+   session_start();
 ?>
 <!DOCTYPE html>
 <html lang="tr" data-bs-theme="dark">
@@ -16,7 +17,7 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-   <a class="navbar-brand" href="/">
+   <a class="navbar-brand" href="./">
       <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
       TrinsyBlog
     </a>
@@ -26,27 +27,35 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Bloglar</a>
+          <a class="nav-link active" aria-current="page" href="./">Bloglar</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="admin/">Admin Paneli</a>
-        </li>
+        <?php
+         
+         if(isset($_SESSION["giris"]))
+         {
+            echo '<li class="nav-item">
+                     <a class="nav-link active" aria-current="page" href="admin/">Admin</a>
+                  </li>';
+         }
+         ?>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Sosyal Medya
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">İnstagram</a></li>
-            <li><a class="dropdown-item" href="#">Twitter</a></li>
+            <li><a class="dropdown-item" href="https://www.instagram.com/omer.islmoglu/" target="_blank">İnstagram</a></li>
+            <li><a class="dropdown-item" href="https://twitter.com/TrinsyCa" target="_blank">Twitter</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Twitch</a></li>
+            <li><a class="dropdown-item" href="https://oislamoglu.bistbilisim.com/" target="_blank">Web Sitesi</a></li>
           </ul>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <?php
+         if(isset($_SESSION["giris"]))
+         {
+            echo '<a href="admin/index.php?sayfa=logout" class="btn btn-outline-success" style="border-radius: 15px; position: relative; margin-left: 15px;">'.$_SESSION["isim"].' - Çıkış Yap</a>';
+         }
+      ?>
     </div>
   </div>
 </nav>

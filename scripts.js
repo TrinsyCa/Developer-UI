@@ -1,7 +1,15 @@
+const preloader = document.getElementById("preloader");
+const preloaderimg = document.getElementById("preloaderimg");
+window.addEventListener('load', function()
+{
+   preloaderimg.style.marginTop = "1200px";
+   preloaderimg.style.width = "220px";
+   preloader.style.opacity = "0";
+});
+
 const cursor = document.querySelector('.cursor');
 //var timeout;
 const listitems = document.querySelectorAll('a');
-
 
 //Mouse takibi
 if(window.screen.width >= 620)
@@ -24,10 +32,10 @@ if(window.screen.width >= 620)
    });
 }
 //mouseout efekti
-/*document.addEventListener('mouseout' , () =>
+document.addEventListener('mouseout' , () =>
 {
    cursor.style.display = 'none';
-});*/
+});
 
 //animasyon
 listitems.forEach((item,index) =>
@@ -60,7 +68,7 @@ function studiesopen()
    profileinf.style.paddingTop = '10px';
    profileinf.style.top = '19%';
    profileimg.style.bottom = '16px';
-   profileborder.style.padding = '0';
+   profileborder.style.padding = '4px';
    profileimg.style.width = '200px';
    profileimg.style.height = '200px';
    profileimg.style.borderRadius = '25%';

@@ -1,24 +1,34 @@
 <?php
-   include("admin/connection.php"); 
-   include("admin/linkfunc.php");
+   include("../admin/connection.php"); 
+   include("../admin/linkfunc.php");
    ob_start();
    session_start();
 
-   @$link = @$_GET["link"];
+   echo '<p id="href" name="href"></p>';
+   @$link = $_GET["href"];
 
-   $data = $db->prepare("SELECT * FROM bloglarim WHERE link = ?");
+   $data = $db->prepare("SELECT * FROM admin WHERE isim = ?");
    $data->execute([
       @$link
    ]);
    @$_data  = $data->fetch(PDO::FETCH_ASSOC);
 ?>
+<script>
+   var url = document.getElementById("href");
+   var newURL= window.location.pathname;
+   console.log(newURL);
+   var splitURL=newURL.toString().split("/");
+   console.log(splitURL);
+   console.log(splitURL[5]);
+   url.innerHTML = splitURL[5];
+</script>
 <!DOCTYPE html>
 <html lang="tr" data-bs-theme="dark">
 <head>
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title><?php echo $_data["baslik"]; if($_data["kategori"]) { echo ' - '.$_data["kategori"]; }?> | TrinsyBlog</title>
+   <title><?php echo $_data["isim"]; ?> | TrinsyBlog</title>
    <link rel="shortcut icon" href="T_LOGO.png">
 
    <link rel="stylesheet" href="styles.css">

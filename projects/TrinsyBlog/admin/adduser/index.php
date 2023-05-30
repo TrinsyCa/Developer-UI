@@ -9,7 +9,7 @@
        <meta charset="UTF-8">
        <meta http-equiv="X-UA-Compatible" content="IE=edge">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>Blog List - Admin Paneli | TrinsyBlog</title>
+       <title>Yazar Ekle - Admin Paneli | TrinsyBlog</title>
        <link rel="shortcut icon" href="../../T_LOGO.png">
 
        <link rel="stylesheet" href="../../styles.css">
@@ -99,59 +99,60 @@
    </nav>
    <div class="wrapper">
       <h1 style="color:#E7B761;">
-         Blog List | TrinsyBlog
+         Yazar Ekle | TrinsyBlog
       </h1>
          
       <div class="container">
          <div class="row">
             <div class="col-lg-12 mt-5 mb-5">
-               <table class="table table-dark table-striped">
-                  <tr>
-                     <td></td>
-                     <td style="padding-left: 15px; font-size: 24px;">Başlık</td>
-                     <td style="text-align:center; font-size: 24px;">Kategori</td>
-                     <td style="text-align:center; width:161px; font-size: 24px;">Tarih</td>
-                     <td></td>
-                  </tr>
-                  <?php
-                     if(isset($_SESSION["giris"]))
+               <form action="" method="post" style="user-select:none;">
+                  <strong>Kullanıcı Adı : </strong>
+                  <input type="text" name="isim" class="form-control">
+                  <br>
+                  <strong>Adı Soyadı : </strong>
+                  <input type="text" name="adsoyad" class="form-control">
+                  <br>
+                  <strong>Şifre : </strong>
+                  <input type="password" name="sifre" class="form-control">
+                  <br>
+                  <div style="display:flex; justify-content: space-between; align-items:center; padding-bottom: 20px;">
+                     <p></p>
+                     <input type="submit" value="Yazar Ekle" class="btn btn-outline-success">
+                  </div>
+               </form>
+               <?php
+                  if(@$_POST)
+                  {
+                     @$isim = htmlspecialchars(@$_POST["isim"]);
+                     @$adsoyad = htmlspecialchars(@$_POST["adsoyad"]);
+                     @$sifre = htmlspecialchars(@$_POST["sifre"]);
+
+                     if(empty(@$isim) || empty(@$adsoyad) || empty(@$sifre))
                      {
-                        $veri = $db->prepare("SELECT * FROM bloglarim ORDER BY id DESC");
-                        $veri->execute();
-                        $islem = $veri->fetchAll(PDO::FETCH_ASSOC);
-                     
-                        foreach($islem as $row)
+                        echo '<p class="alert alert-warning">Lütfen Boş Bırakmayınız..</p>';
+                        header("Refresh:1; url=./");
+                     }
+                     else
+                     {
+                        $veriekle = $db->prepare("INSERT INTO admin SET isim = ? , adsoyad = ? , sifre = ?");
+                        $veriekle -> execute([
+                           @$isim,
+                           @$adsoyad,
+                           @$sifre
+                        ]);
+                        if($veriekle)
                         {
-                           if($row["baslik"] == null)
-                           {
-                              $row["baslik"] = '<i style="color:grey;" class="fa-solid fa-question"></i>';
-                           }
-                           if($row["kategori"] == null)
-                           {
-                              $row["kategori"] = '<i style="color:grey;" class="fa-solid fa-question"></i>';
-                           }
-                           if($row["tarih"] == null)
-                           {
-                              $row["tarih"] = '<i style="color:grey;" class="fa-solid fa-question"></i>';
-                           }
-                           echo '<tr>
-                                    <td></td>
-                                    <td><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["baslik"].'</a></td>
-                                    <td style="text-align:center;"><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["kategori"].'</a></td>
-                                    <td style="text-align:end;"><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["tarih"].'</a></td>
-                                    <td></td>
-                                 </tr>';
+                           echo '<p class="alert alert-success">Yazar Başarıyla Eklendi</p>';
+                           header("Refresh: 2; url=../../");
+                        }
+                        else
+                        {
+                           echo '<p class="alert alert-danger">Yazar Ekleme İle İlgili Bir Sorun Oluştu</p>';
+                           header("Refresh:3; url=./");
                         }
                      }
-                  ?>
-                  <tr>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                     <td></td>
-                  </tr>
-               </table>
+                  }
+               ?>
             </div>
          </div>
       </div>

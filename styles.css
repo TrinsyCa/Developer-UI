@@ -4,7 +4,45 @@
    font-family: 'Varela Round', sans-serif;
    user-select: none;
 }
-
+#preloader
+{
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%,-50%);
+   background: #050505;
+   width: 100vw;
+   height: 100vh;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   z-index: 99999;
+   user-select: none;
+   pointer-events: none;
+   transition: 1.3s;
+   overflow: hidden;
+}
+#preloader img
+{
+   width: 220px;
+   box-shadow: 0 0 100px 50px #151515;
+   border-radius: 70px;
+   overflow: hidden;
+   animation: preloader_anim 1.8s ease-in-out infinite;
+   transition: 1.3s;
+}
+@keyframes preloader_anim
+{
+   0%
+   {
+      width: 220px;
+   }
+   50%
+   {
+      width: 320px;
+      border-radius: 85px;
+   }
+}
 body {
    /*background: linear-gradient(to right top,#7b00ff2a,#e63b3e40),url(img/space.jpg);*/
    background: url(img/bg-wallpaper.jpg);
@@ -45,7 +83,7 @@ body {
    position: relative;
    background: linear-gradient(to bottom, #7b00ff7a, #e63b3e7a);
    /*background: linear-gradient(to right top,#7b00ff2a,#e63b3e40);*/
-   padding: 7px;
+   padding: 8px;
    display: flex;
    align-items: center;
    justify-content: center;
@@ -54,12 +92,12 @@ body {
    transition: all .4s;
    overflow: hidden;
 }
-
 .profile-card {
    width: 100%;
    height: 100%;
    box-shadow: 0 0 200px -20px black;
    border-radius: 25px;
+   overflow: hidden;
 }
 
 .profile-nav {
@@ -91,7 +129,6 @@ body {
    position: absolute;
    width: 100%;
    height: 235px;
-   border-radius: 25px 25px 0 0;
    background: linear-gradient(to bottom, #7b00ff9a, #e63b3e9a, #7b00ff9a);
    transition: all .5s;
    object-fit: cover;
@@ -118,6 +155,20 @@ body {
    height: 100%;
    border-radius: 100%;
    transition: all .5s;
+   position: absolute;
+   padding: 4px;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%,-50%);
+}
+.profile-border:hover #profile-img-in
+{
+   opacity: 0;
+}
+#profile-img-in
+{
+   opacity: 1;
+   transition: 0.65s;
 }
 .profile-inf-border
 {
@@ -191,7 +242,7 @@ body {
    padding-bottom: 15px;
 }
    .profile-border:hover {
-      padding: 0;
+      padding: 4px;
    }
 
    .profile-border:hover .profile-img {
@@ -215,23 +266,23 @@ body {
    }
 
    .insta:hover {
-      box-shadow: 0 0 20px 15px rgba(120, 64, 190, 1);
+      box-shadow: 0 0 15px 10px rgba(120, 64, 190, 1);
    }
 
    .twitter:hover {
-      box-shadow: 0 0 20px 10px rgba(19, 127, 212, 1);
+      box-shadow: 0 0 15px 8px rgba(19, 127, 212, 1);
    }
 
    .github:hover {
-      box-shadow: 0 0 20px 10px rgb(46, 48, 49);
+      box-shadow: 0 0 15px 8px rgb(46, 48, 49);
    }
 
    .discord:hover {
-      box-shadow: 0 0 20px 10px rgba(34, 120, 233, 1);
+      box-shadow: 0 0 15px 8px rgba(34, 120, 233, 1);
    }
 
    .lol:hover {
-      box-shadow: 0 0 20px 10px #c0975e;
+      box-shadow: 0 0 15px 8px #c0975e;
    }
 .links
 {
@@ -353,7 +404,7 @@ body {
 }
 .twitter {
    background: linear-gradient(45deg, #1da1f2, #0e71c8);
-   box-shadow: 0 0 10px 5px rgba(19, 127, 212, 0.7);
+   box-shadow: 0 0 10px 3px rgba(19, 127, 212, 0.7);
 }
 .github {
    background: linear-gradient(45deg, #333333, #626b73);

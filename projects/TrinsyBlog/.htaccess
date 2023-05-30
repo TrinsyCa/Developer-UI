@@ -1,0 +1,7 @@
+RewriteEngine On
+#RewriteBase /trinsyca/projects/TrinsyBlog/
+#RewriteRule ^yazarlar/(.*)$ index.php?author=$1 [NC]
+   RewriteRule ^yazarlar/([0-9a-zA-Z-_]+)$ yazarlar/index.php?author=$1
+#   RewriteCond %{HTTP_HOST} ^oislamoglu.bistbilisim.com [NC, OR]
+#   RewriteCond %{HTTP_HOST} ^www.oislamoglu.bistbilisim.com [NC]
+#   RewriteRule ^(.*)$ https://oislamoglu.bistbilisim.com/$1 [L,R=301,NC]*

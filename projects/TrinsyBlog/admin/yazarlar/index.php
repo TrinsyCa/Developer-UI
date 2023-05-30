@@ -99,7 +99,7 @@
    </nav>
    <div class="wrapper">
       <h1 style="color:#E7B761;">
-         Blog List | TrinsyBlog
+         Yazarlar | TrinsyBlog
       </h1>
          
       <div class="container">
@@ -108,37 +108,37 @@
                <table class="table table-dark table-striped">
                   <tr>
                      <td></td>
-                     <td style="padding-left: 15px; font-size: 24px;">Başlık</td>
-                     <td style="text-align:center; font-size: 24px;">Kategori</td>
-                     <td style="text-align:center; width:161px; font-size: 24px;">Tarih</td>
+                     <td style="font-size: 24px;">Kullanıcı Adı</td>
+                     <td style="text-align:center; font-size: 24px;">Adı Soyadı</td>
+                     <td style="text-align:end; font-size: 24px;">Şifre</td>
                      <td></td>
                   </tr>
                   <?php
                      if(isset($_SESSION["giris"]))
                      {
-                        $veri = $db->prepare("SELECT * FROM bloglarim ORDER BY id DESC");
+                        $veri = $db->prepare("SELECT * FROM admin ORDER BY id DESC");
                         $veri->execute();
                         $islem = $veri->fetchAll(PDO::FETCH_ASSOC);
                      
                         foreach($islem as $row)
                         {
-                           if($row["baslik"] == null)
+                           if($row["isim"] == null)
                            {
-                              $row["baslik"] = '<i style="color:grey;" class="fa-solid fa-question"></i>';
+                              $row["isim"] = '<i style="color:grey;" class="fa-solid fa-question"></i>';
                            }
-                           if($row["kategori"] == null)
+                           if($row["adsoyad"] == null)
                            {
-                              $row["kategori"] = '<i style="color:grey;" class="fa-solid fa-question"></i>';
+                              $row["adsoyad"] = '<i style="color:grey;" class="fa-solid fa-question"></i>';
                            }
-                           if($row["tarih"] == null)
+                           if($row["sifre"] == null)
                            {
-                              $row["tarih"] = '<i style="color:grey;" class="fa-solid fa-question"></i>';
+                              $row["sifre"] = '<i style="color:grey;" class="fa-solid fa-question"></i>';
                            }
                            echo '<tr>
                                     <td></td>
-                                    <td><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["baslik"].'</a></td>
-                                    <td style="text-align:center;"><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["kategori"].'</a></td>
-                                    <td style="text-align:end;"><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["tarih"].'</a></td>
+                                    <td><a href="../../yazarlar/'.permalink($row["isim"]).'"target="_blank">'.$row["isim"].'</a></td>
+                                    <td style="text-align:center;"><a href="../../yazarlar/'.permalink($row["isim"]).'"target="_blank">'.$row["adsoyad"].'</a></td>
+                                    <td style="text-align:end;"><a href="../../yazarlar/'.permalink($row["isim"]).'"target="_blank">'.$row["sifre"].'</a></td>
                                     <td></td>
                                  </tr>';
                         }

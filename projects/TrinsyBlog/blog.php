@@ -11,6 +11,14 @@
       @$link
    ]);
    @$_data  = $data->fetch(PDO::FETCH_ASSOC);
+
+   if(!isset($_SESSION["giris"]))
+   {
+      $tiklanma = $_data["view"];
+      $new_tiklanma = intval($tiklanma) + 1;
+      $tiklanmaUpdate = $db->prepare("UPDATE bloglarim SET view = ? WHERE id = ?");
+      $tiklanmaUpdate->execute([$new_tiklanma, $_data["id"]]);
+   }
 ?>
 <!DOCTYPE html>
 <html lang="tr" data-bs-theme="dark">
@@ -19,14 +27,14 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title><?php echo $_data["baslik"]; if($_data["kategori"]) { echo ' - '.$_data["kategori"]; }?> | TrinsyBlog</title>
-   <link rel="shortcut icon" href="T_LOGO.png">
+   <link rel="shortcut icon" href="../T_LOGO_yuvarlak.png">
 
-   <link rel="stylesheet" href="styles.css">
+   <link rel="stylesheet" href="../styles.css">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 </head>
 <body>
 <div id="preloader">
-   <img id="preloaderimg" src="../../img/T_LOGO_yuvarlak.png" alt="Yükleniyor..">
+   <img id="preloaderimg" src="../T_LOGO_yuvarlak.png" alt="Yükleniyor..">
 </div>
 <style>
    body
@@ -76,8 +84,8 @@
 </style>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="./" style="color:#E7B761; display:flex; align-items:center; gap: 10px;">
-      <img src="T_LOGO.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
+    <a class="navbar-brand" href="../" style="color:#E7B761; display:flex; align-items:center; gap: 10px;">
+      <img src="../T_LOGO.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
       <h1 style="font-size: 20px; height:15px;">TrinsyBlog<?php if(isset($_SESSION["giris"])) { echo ' | '.$_SESSION["isim"]; }?></h1>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,14 +94,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="./"><i class="fa-solid fa-house"></i>&nbsp; Anasayfa</a>
+          <a class="nav-link active" aria-current="page" href="../"><i class="fa-solid fa-house"></i>&nbsp; Anasayfa</a>
         </li>
         <?php
          
          if(isset($_SESSION["giris"]))
          {
             echo '<li class="nav-item">
-                     <a class="nav-link" aria-current="page" href="admin/"><i class="fa-solid fa-lock"></i>&nbsp; Admin</a>
+                     <a class="nav-link" aria-current="page" href="../admin/"><i class="fa-solid fa-lock"></i>&nbsp; Admin</a>
                   </li>';
          }
          ?>
@@ -102,14 +110,14 @@
             <i class="fa-solid fa-grip"></i>&nbsp; Kategori
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="blog"><i class="fa-solid fa-scroll"></i>&nbsp; Blog</a></li>
+            <li><a class="dropdown-item" href="../blog"><i class="fa-solid fa-scroll"></i>&nbsp; Blog</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="yazilim"><i class="fa-solid fa-code"></i>&nbsp; Yazılım</a></li>
-            <li><a class="dropdown-item" href="photoshop"><i class="fa-solid fa-images"></i>&nbsp; Photoshop</a></li>
-            <li><a class="dropdown-item" href="video-dizayn"><i class="fa-solid fa-video"></i>&nbsp; Video Dizayn</a></li>
-            <li><a class="dropdown-item" href="robotik-kodlama"><i class="fa-solid fa-code"></i>&nbsp; Robotik Kodlama</a></li>
+            <li><a class="dropdown-item" href="../yazilim"><i class="fa-solid fa-code"></i>&nbsp; Yazılım</a></li>
+            <li><a class="dropdown-item" href="../photoshop"><i class="fa-solid fa-images"></i>&nbsp; Photoshop</a></li>
+            <li><a class="dropdown-item" href="../video-dizayn"><i class="fa-solid fa-video"></i>&nbsp; Video Dizayn</a></li>
+            <li><a class="dropdown-item" href="../robotik-kodlama"><i class="fa-solid fa-code"></i>&nbsp; Robotik Kodlama</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="proje-duyuru" target="_blank"><i class="fa-solid fa-bullhorn"></i>&nbsp; Proje Duyuru</a></li>
+            <li><a class="dropdown-item" href="../proje-duyuru" target="_blank"><i class="fa-solid fa-bullhorn"></i>&nbsp; Proje Duyuru</a></li>
          </ul>
         </li>
         <li class="nav-item dropdown">
@@ -127,7 +135,7 @@
       <?php
          if(isset($_SESSION["giris"]))
          {
-            echo '<a href="admin/index.php?sayfa=logout" class="btn btn-outline-success" style="border-radius: 15px; position: relative;"><i class="fa-solid fa-user"></i> '.$_SESSION["isim"].'</a>';
+            echo '<a href="../admin/index.php?sayfa=logout" class="btn btn-outline-success" style="border-radius: 15px; position: relative;"><i class="fa-solid fa-user"></i> '.$_SESSION["isim"].'</a>';
          }
       ?>
     </div>
@@ -138,7 +146,7 @@
    <style>
       .alert
       {
-         position:absolute;
+         position:fixed;
          top:60%;
          left:50%;
          transform:translate(-50%,-50%);
@@ -147,17 +155,30 @@
          user-select:none;
          pointer-events:none;
          transition: 0.35s;
+         z-index: 9999999999999999;
       }
    </style>
-   <h1><?php echo $_data["baslik"]; ?></h1>
    <div class="container">
       <div class="row">
-         <div class="col-lg-12 mb-5">
+         <div class="col-lg-12 mb-5 blog">
+            <h1><?php echo $_data["baslik"]; ?></h1>
             <div>
                <img src="<?php echo $_data["resim"] ?>" style="width:100%; margin-bottom:30px;border-radius: 20px;box-shadow: 0 0 10px 5px #e2985b;max-height: 600px;object-fit: cover; pointer-events:none;">
             </div>
             <p style="font-size:18px;">
-               <?php echo $_data["metin"]; ?>
+            <?php
+               if (stripos($_data["metin"], "``") !== false)
+               {
+                  $metin_ex = explode("``", $_data["metin"]);
+                  $_data["metin"] = "";
+                  foreach ($metin_ex as $index => $row)
+                  {
+                     $_data["metin"] .= ($index % 2 === 0) ? $row : "<div class=\"code\"><button onclick='copyCode()' class=\"copy\"><i class='fa-solid fa-clone'></i>&nbsp; Kodu Kopyala</button><div id=\"code\">" . $row . "</div><button onclick='toggleText();' class=\"more-opt\" id=\"more-opt\"><i class='fa-solid fa-caret-down'></i>&nbsp; Daha Fazla</button></div>";
+                  }
+               }
+
+               echo nl2br($_data["metin"]);
+            ?>
             </p>
             <div class="details-col">
                <div class="details">
@@ -172,13 +193,13 @@
                      if(@$_data["kategori"])
                      {
                         echo '<strong class="d-flex justify-content-center">
-                        Kategori : &nbsp; <a href="'.permalink(@$_data["kategori"]).'">'.@$_data["kategori"].'</a>
+                        Kategori : &nbsp; <a href="../'.permalink(@$_data["kategori"]).'">'.@$_data["kategori"].'</a>
                         </strong>';
                      } 
                      if(@$_data["yazar_adsoyad"] && @$_data["yazar"])
                      {
                         echo '<strong class="d-flex justify-content-center">
-                        Yazar : &nbsp; <a href="yazarlar/'.permalink(@$_data["yazar"]).'" target="_blank">'.@$_data["yazar_adsoyad"].'</a>
+                        Yazar : &nbsp; <a href="">'.@$_data["yazar_adsoyad"].'</a>
                         </strong>';
                      }
                      ?>
@@ -216,7 +237,7 @@
                      {
                         background:rgba(0,0,0,0.45);
                         border-radius:20px;
-                        padding: 12px 18px;
+                        padding: 12px;
                         width:fit-content;
                         display:flex;
                         flex-direction:column;
@@ -264,21 +285,6 @@
 </div>
 <script src="https://kit.fontawesome.com/b40b33d160.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-<script>
-   const preloader = document.getElementById("preloader");
-   const preloaderimg = document.getElementById("preloaderimg");
-   const body = document.querySelector("body");
-   function delay(time) 
-   {
-      return new Promise(resolve => setTimeout(resolve, time));
-   }
-   window.addEventListener('load', function()
-   {
-      preloaderimg.style.marginTop = "1200px";
-      preloaderimg.style.width = "220px";
-      preloader.style.opacity = "0";
-      delay(300).then(() => body.style.overflow = "auto");
-   });
-</script>
+<script src="../scripts/blog.js"></script>
 </body>
 </html>

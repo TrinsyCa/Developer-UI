@@ -18,7 +18,7 @@
 </head>
 <body>
 <div id="preloader">
-   <img id="preloaderimg" src="../../../img/T_LOGO_yuvarlak.png" alt="Yükleniyor..">
+   <img id="preloaderimg" src="../T_LOGO_yuvarlak.png" alt="Yükleniyor..">
 </div>
 <style>
    body
@@ -140,49 +140,53 @@
          {
             echo '<div class="col-lg-4 mb-4">
                      <div class="card">
-                        <a href="../blog.php?link='.$row["link"].'">
+                        <div>
                            <div>
-                              <div>
-                                 <a href="@'.$row["yazar"].'" class="author" target="_blank">'.$row["yazar"].'</a>
-                                 <a href="../blog.php?link='.$row["link"].'">
+                                 <a href="yazar/'.$row["yazar"].'" class="author" target="_blank">'.$row["yazar_adsoyad"].'</a>
+                                 <a href="../p/'.$row["link"].'">
                                     <img class="card-pic" src="'.$row["resim"].'" >
                                     <div class="card-pic-shadow"></div>
                                  </a>
-                              </div>
-                              <style>
-                                 .card img{ transition: 0.4s; border-bottom: 3px solid transparent; position:relative; }
-                                 .card:hover img{scale:1.1;; border-bottom: 3px solid #E7B761;} 
-                                 .card-pic-shadow { position:absolute; top:0; width:415px; height:165px; background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent 80%); opacity:0; transition:0.35s; }
-                                 .card:hover .card-pic-shadow { opacity:1; }
-                                 .author { position:absolute; z-index:100; top:5px; right:-55px; opacity:0; transition:0.4s;  font-style: italic; color:rgba(255,255,255,0.9); }
-                                 .card:hover .author { right:10px; opacity:1; }
-                                 .author::after
-                                 {
-                                    content: "";
-                                    position:absolute;
-                                    left:0; right:0; top:20px; bottom:0;
-                                    width: 0;
-                                    height: 3px;
-                                    border-radius: 10px;
-                                    background-color: rgba(255,255,255,0.9) ;
-                                    display: block;
-                                    margin-left: auto;
-                                    transition: 0.5s;
-                                 }
-                                 .author:hover::after { width:100%; }
-                              </style>
                            </div>
-                           <a href="../blog.php?link='.$row["link"].'" class="card-body" style="padding:16px;">
-                              <div class="card-title"><h3 style="color:#E7B761; text-shadow: 0 4px 4px black;">'.kisalt($row["baslik"],22).'</h3></div>
-                              <div class="card-text" style="width:100%; height:100%; color:rgba(255,255,255,0.6);">'.kisalt($row["metin"], 120).'</div>
-                              <a href="../blog.php?link='.$row["link"].'" style="display:flex; justify-content:space-between; align-items:center; width: 94%; height: 40px; position:absolute; bottom: 10px; right: 10px;>
-                                 <span style="width: 100%; display:flex; align-items:center"><p class="card-date">Tarih: '.$row["tarih"].'</p></span> <style> .card-date { height:1px; color:rgba(255,255,255,0.5); margin-top:65px; opacity:0; transition:0.5s; } .card:hover .card-date { opacity:1; margin-top:0; } </style>
+                           <style>
+                           .card img
+                           { transition: 0.4s; border-bottom: 3px solid transparent; position:relative; }
+                           .card:hover img
+                           {scale:1.1;; border-bottom: 3px solid #E7B761;}
+                           .card-pic-shadow
+                           { position:absolute; top:0; width:415px; height:165px; background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent 80%); opacity:0; transition:0.35s; }
+                           .card:hover .card-pic-shadow
+                           { opacity:1; }
+                           .author
+                           { position:absolute; z-index:100; top:5px; right:-55px; opacity:0; transition:0.35s;  font-style: italic; color:rgba(255,255,255,0.9); }
+                           .card:hover .author
+                           { right:10px; opacity:1; }
+                           .author::after
+                           { content: ""; position:absolute; left:0; right:0; top:20px; bottom:0; width: 0; height: 3px; border-radius: 10px; background-color: rgba(255,255,255,0.9) ; display: block; margin-left: auto; transition: 0.5s; }
+                           .author:hover::after
+                           { width:100%; }
+                           .paylas
+                           { padding: 6px 8px; opacity:0; border-radius: 15px; background: transparent; border:3px solid rgba(180,180,180); color: rgba(180,180,180); transition: 0.3s; position:absolute; font-size:16px; top: 7px; left:-40px; z-index:99999; }
+                           .paylas:hover
+                           { background-color:white; color: var(--bs-body-bg); border-color: white; }
+                           .card:hover .paylas
+                           { left: 7px; opacity:1; }
+                           .card-date
+                           { height:1px; color:rgba(255,255,255,0.5); margin-top:65px; opacity:0; transition:0.3s 0.1s; }
+                           .card:hover .card-date
+                           { opacity:1; margin-top:0; }
+                           </style>
+                        </div>
+                        <a href="../p/'.$row["link"].'" class="card-body" style="padding:16px;">
+                           <div class="card-title"><h3 style="color:#E7B761; text-shadow: 0 4px 4px black;">'.kisalt($row["baslik"],22).'</h3></div>
+                           <div class="card-text" style="width:100%; height:100%; color:rgba(255,255,255,0.6);">'.kisalt($row["metin"], 145).'</div>
+                           <a href="../p/'.$row["link"].'" style="display:flex; justify-content:space-between; align-items:center; width: 94%; height: 40px; position:absolute; bottom: 10px; right: 10px;">
+                                 <span><p class="card-date">Tarih: '.$row["tarih"].'</p></span>
                                  <div class="btn btn-outline-success" style="border-radius: 15px;">Devamını Oku</div>
-                              </a>
                            </a>
                         </a>
                      </div>
-                  </div>';
+               </div>';
          }
       ?>
       </div>

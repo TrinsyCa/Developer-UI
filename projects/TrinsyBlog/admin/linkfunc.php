@@ -84,7 +84,7 @@ function permalink($str, $options = array()){
 
 <?php
 
-// Yazı kısaltma (Devamını oku)
+// Yazı kısaltma
 
 function kisalt($kelime, $str = 10){
  if (strlen($kelime) > $str){

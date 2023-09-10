@@ -1,6 +1,8 @@
 <?php
    ob_start();
    session_start();
+   include("admin/connection.php");
+   include("admin/kisalt.php")
 ?>
 <!DOCTYPE html>
 <html lang="tr-TR" data-bs-theme="dark">
@@ -14,12 +16,6 @@
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 
    <style>
-      *
-      {
-         padding: 0;
-         margin: 0;
-         box-sizing: border-box;
-      }
       .haber-resim
       {
          height: 190px;
@@ -31,6 +27,12 @@
          padding: 0;
          border-radius: 15px;
          overflow: hidden;
+      }
+      .baslik_text
+      {
+         color: white;
+         text-align:center;
+         padding: 50px 0;
       }
    </style>
 </head>
@@ -66,11 +68,7 @@
                                  Admin
                               </button>
                               <ul class="dropdown-menu dropdown-menu-dark">
-                                 <li><a class="dropdown-item" href="admin/blog-ekle">Blog Ekle</a></li>
-                                 <li><a class="dropdown-item" href="admin/blog-duzenle">Blog Düzenle</a></li>
-                                 <hr>
-                                 <li><a class="dropdown-item" href="admin/kullanici-ekle">Kullanıcı Ekle</a></li>
-                                 <li><a class="dropdown-item" href="admin/kullanici-duzenle">Kullanıcı Düzenle</a></li>
+                                 <li><a class="dropdown-item" href="admin">Admin Paneli</a></li>
                                  <hr>
                                  <li><a class="dropdown-item" href="admin/index.php?sayfa=logout">Çıkış Yap</a></li>
                               </ul>
@@ -79,50 +77,49 @@
                ?>
                <?php
                   if(isset($_SESSION["giris"]))
-                  { echo '<li style="color:white; position:absolute; right:20px;">Kullanıcı : '.$_SESSION["isim"].'</li>'; }
+                  {
+                     echo '<li style="color:white; position:absolute; right:20px; list-style-type:none;">Kullanıcı : '.$_SESSION["isim"].'</li>';
+                  }
                ?>
             </ul>
         </div>
       </div>
     </nav>
     <div class="wrapper">
-      <h1 style="text-align: center; padding: 50px 0;">Yusuf Buğra Blog</h1>
+      <h1 class="baslik_text">Yusuf Buğra Blog</h1>
       <div class="container">
          <div class="row" style="display: flex; justify-content: center; gap: 35px;">
-            <div class="card mb-3 haber" style="max-width: 600px; max-height: 192px;">
-               <div class="row g-0">
-                 <div class="col-md-4">
-                   <img src="../../img/bg-wallpaper.jpg" class="img-fluid rounded-start haber-resim">
-                 </div>
-                 <div class="col-md-8">
-                   <div class="card-body">
-                     <h5 class="card-title">Card title</h5>
-                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                     <div style="display: flex; justify-content: space-between;">
-                        <p class="card-text" style="padding-top: 10px;"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                        <p class="card-text"><a href="#" class="btn btn-primary">Devamını Gör</a></p>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-            </div>
-            <div class="card mb-3 haber" style="max-width: 600px; max-height: 192px;">
-               <div class="row g-0">
-                 <div class="col-md-4">
-                   <img src="../../img/TrinsyCa.png" class="img-fluid rounded-start haber-resim">
-                 </div>
-                 <div class="col-md-8">
-                   <div class="card-body">
-                     <h5 class="card-title">Card title</h5>
-                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                     <div style="display: flex; justify-content: space-between;">
-                        <p class="card-text" style="padding-top: 10px;"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
-                        <p class="card-text"><a href="#" class="btn btn-primary">Devamını Gör</a></p>
-                     </div>
-                   </div>
-                 </div>
-               </div>
-            </div>
+            <?php
+               $veri = $db->prepare("SELECT * FROM bloglarim ORDER BY id DESC");
+               $veri->execute();
+               $islem = $veri->fetchAll(PDO::FETCH_ASSOC);
+               foreach($islem as $row)
+               {
+                  echo '<div class="card mb-3 haber" style="max-width: 600px; max-height: 192px;">
+                           <div class="row g-0">
+                           <div class="col-md-4">
+                              <img src="'.$row["resim"].'" class="img-fluid rounded-start haber-resim">
+                           </div>
+                           <div class="col-md-8">
+                              <div class="card-body">
+                                 <h5 class="card-title">'.kisalt($row["baslik"], 38).'</h5>
+                                 <p class="card-text">'.kisalt($row["metin"] , 149).'</p>
+                                 <div style="display: flex; justify-content: space-between;">
+                                    <p class="card-text" style="padding-top: 10px;"><small>Yazar : '.$row["yazar"].'</small></p>
+                                    <p class="card-text"><a href="blog.php?link='.$row["link"].'" class="btn btn-primary">Devamını Gör</a></p>
+                                 </div>
+                              </div>
+                           </div>
+                           </div>
+                           <style>
+                              .card-text
+                              {
+                                 min-height:75px;
+                              }
+                           </style>
+                        </div>';
+               }
+            ?>
          </div>
       </div>
     </div>

@@ -110,7 +110,7 @@
         if(@$_POST)
         {
             @$kadi=trim(htmlspecialchars(@$_POST["kullanici"]));
-            @$sifre=(htmlspecialchars(@$_POST["sifre"]));
+            @$sifre=htmlspecialchars(@$_POST["sifre"]);
             if(!@$kadi || !@$sifre)
             {
                 echo "<p class='alert alert-danger' style='text-align:center; padding:7px; width:335px; margin:auto;'>Kullanıcı Adı veya Şifre Boş Bırakılamaz</p>";

@@ -39,28 +39,68 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="../">Anasayfa</a>
+              <a class="nav-link" aria-current="page" href="../">Anasayfa</a>
             </li>
             <li class="nav-item">
                <a class="nav-link" href="../bloglar">Bloglar</a>
             </li>
-            <li class="nav-item dropdown">
-               <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                  Admin
-               </button>
-               <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item" href="blog-ekle">Blog Ekle</a></li>
-                  <li><a class="dropdown-item" href="blog-duzenle">Blog Düzenle</a></li>
+                  <li><a class="nav-link active" href="./">Admin</a></li>
                   <hr>
-                  <li><a class="dropdown-item" href="kullanici-ekle">Kullanıcı Ekle</a></li>
-                  <li><a class="dropdown-item" href="kullanici-duzenle">Kullanıcı Düzenle</a></li>
-                  <hr>
-                  <li><a class="dropdown-item" href="index.php?sayfa=logout">Çıkış Yap</a></li>
-               </ul>
-            </li>
+                  <li><a class="nav-link" href="index.php?sayfa=logout">Çıkış Yap</a></li>
+            </ul>
+            </ul>
+               <?php
+                if(isset($_SESSION["giris"]))
+                {
+                    echo '<li style="color:white; position:absolute; right:20px; list-style-type:none;">Kullanıcı : '.$_SESSION["isim"].'</li>';
+                }
+               ?>
             </ul>
         </div>
       </div>
     </nav>
+    <div class="wrapper">
+      <h1 class="baslik_text">
+            <?php echo "Hoşgeldin ". $_SESSION["isim"]?>
+      </h1>
+      <div class="container">
+         <div class="row admin-menu">
+            <div class="admin-menu-btns">
+               <a href="addtext" class="btn btn-outline-success admin-menus">Blog Ekle</a>
+               <a href="bloglist" class="btn btn-outline-success admin-menus">Blog List</a>
+               <a href="adduser" class="btn btn-outline-success admin-menus">Yazar Ekle</a>
+               <a href="yazarlar" class="btn btn-outline-success admin-menus">Yazarlar</a>
+            </div>
+         </div>
+      </div>
+      <style>
+         .baslik_text
+         {
+            color: white;
+            text-align:center;
+            padding: 50px 0;
+         }
+         .admin-menu-btns
+         {
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            gap: 15px;
+         }
+         .admin-menu
+         {
+            padding-top:30px;
+            display:flex;
+            flex-direction: column;
+            justify-content:center;
+            align-items:center;
+         }
+         .admin-menus
+         {
+            width:500px;
+            font-size:28px;
+         }
+      </style>
+   </div>
 </body>
 </html>

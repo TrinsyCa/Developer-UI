@@ -10,7 +10,7 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>TrinsyBlog</title>
+   <title>TrinsyBlog | Ömer İslamoğlu Blog</title>
    <link rel="shortcut icon" href="T_LOGO.png">
 
    <link rel="stylesheet" href="styles.css">
@@ -18,7 +18,7 @@
 </head>
 <body>
 <div id="preloader">
-   <img id="preloaderimg" src="../../img/T_LOGO_yuvarlak.png" alt="Yükleniyor..">
+   <img id="preloaderimg" src="T_LOGO_yuvarlak.png" alt="Yükleniyor..">
 </div>
 <style>
    body
@@ -70,7 +70,7 @@
   <div class="container-fluid">
     <a class="navbar-brand" href="./" style="color:#E7B761; display:flex; align-items:center; gap: 10px;">
       <img src="T_LOGO.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
-      <h1 style="font-size: 20px; height:15px;">TrinsyBlog<?php if(isset($_SESSION["giris"])) { echo ' | '.$_SESSION["isim"]; }?></h1>
+      <h1 style="font-size: 20px; height:15px;">TrinsyBlog</h1>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -147,89 +147,65 @@
    <div class="container">
       <div class="row">
       <?php
-$veri = $db->prepare("SELECT * FROM bloglarim ORDER BY id DESC");
-$veri->execute();
-$islem = $veri->fetchAll(PDO::FETCH_ASSOC);
-foreach($islem as $row) {
-    echo '<div class="col-lg-4 mb-4">
-            <div class="card">
-                <div>
-                    <div>
-                        <button onclick="kopyala();" class="paylas"><i class="fa-solid fa-link"></i></button>
-                        <a href="yazarlar/'.$row["yazar"].'" class="author" target="_blank">'.$row["yazar_adsoyad"].'</a>
-                        <a href="blog.php?link='.$row["link"].'">
-                            <img class="card-pic" src="'.$row["resim"].'" >
-                            <div class="card-pic-shadow"></div>
+         $veri = $db->prepare("SELECT * FROM bloglarim ORDER BY id DESC");
+         $veri->execute();
+         $islem = $veri->fetchAll(PDO::FETCH_ASSOC);
+         foreach($islem as $row) {
+            echo '<div class="col-lg-4 mb-4">
+                     <div class="card">
+                        <div>
+                           <div>
+                                 <a href="yazar/'.$row["yazar"].'" class="author" target="_blank">'.$row["yazar_adsoyad"].'</a>
+                                 <a href="p/'.$row["link"].'">
+                                    <img class="card-pic" src="'.$row["resim"].'" >
+                                    <div class="card-pic-shadow"></div>
+                                 </a>
+                           </div>
+                           <style>
+                           .card img
+                           { transition: 0.4s; border-bottom: 3px solid transparent; position:relative; }
+                           .card:hover img
+                           {scale:1.1;; border-bottom: 3px solid #E7B761;}
+                           .card-pic-shadow
+                           { position:absolute; top:0; width:415px; height:165px; background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent 80%); opacity:0; transition:0.35s; }
+                           .card:hover .card-pic-shadow
+                           { opacity:1; }
+                           .author
+                           { position:absolute; z-index:100; top:5px; right:-55px; opacity:0; transition:0.35s;  font-style: italic; color:rgba(255,255,255,0.9); }
+                           .card:hover .author
+                           { right:10px; opacity:1; }
+                           .author::after
+                           { content: ""; position:absolute; left:0; right:0; top:20px; bottom:0; width: 0; height: 3px; border-radius: 10px; background-color: rgba(255,255,255,0.9) ; display: block; margin-left: auto; transition: 0.5s; }
+                           .author:hover::after
+                           { width:100%; }
+                           .paylas
+                           { padding: 6px 8px; opacity:0; border-radius: 15px; background: transparent; border:3px solid rgba(180,180,180); color: rgba(180,180,180); transition: 0.3s; position:absolute; font-size:16px; top: 7px; left:-40px; z-index:99999; }
+                           .paylas:hover
+                           { background-color:white; color: var(--bs-body-bg); border-color: white; }
+                           .card:hover .paylas
+                           { left: 7px; opacity:1; }
+                           .card-date
+                           { height:1px; color:rgba(255,255,255,0.5); margin-top:65px; opacity:0; transition:0.3s 0.1s; }
+                           .card:hover .card-date
+                           { opacity:1; margin-top:0; }
+                           </style>
+                        </div>
+                        <a href="p/'.$row["link"].'" class="card-body" style="padding:16px;">
+                           <div class="card-title"><h3 style="color:#E7B761; text-shadow: 0 4px 4px black;">'.kisalt($row["baslik"],22).'</h3></div>
+                           <div class="card-text" style="width:100%; height:100%; color:rgba(255,255,255,0.6);">'.kisalt($row["metin"], 145).'</div>
+                           <a href="p/'.$row["link"].'" style="display:flex; justify-content:space-between; align-items:center; width: 94%; height: 40px; position:absolute; bottom: 10px; right: 10px;">
+                                 <span><p class="card-date">Tarih: '.$row["tarih"].'</p></span>
+                                 <div class="btn btn-outline-success" style="border-radius: 15px;">Devamını Oku</div>
+                           </a>
                         </a>
-                    </div>
-                    <style>
-                    .card img
-                    { transition: 0.4s; border-bottom: 3px solid transparent; position:relative; }
-                    .card:hover img
-                    {scale:1.1;; border-bottom: 3px solid #E7B761;}
-                    .card-pic-shadow
-                    { position:absolute; top:0; width:415px; height:165px; background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent 80%); opacity:0; transition:0.35s; }
-                    .card:hover .card-pic-shadow
-                    { opacity:1; }
-                    .author
-                    { position:absolute; z-index:100; top:5px; right:-55px; opacity:0; transition:0.35s;  font-style: italic; color:rgba(255,255,255,0.9); }
-                    .card:hover .author
-                    { right:10px; opacity:1; }
-                    .author::after
-                    { content: ""; position:absolute; left:0; right:0; top:20px; bottom:0; width: 0; height: 3px; border-radius: 10px; background-color: rgba(255,255,255,0.9) ; display: block; margin-left: auto; transition: 0.5s; }
-                    .author:hover::after
-                    { width:100%; }
-                    .paylas
-                    { padding: 6px 8px; opacity:0; border-radius: 15px; background: transparent; border:3px solid rgba(180,180,180); color: rgba(180,180,180); transition: 0.3s; position:absolute; font-size:16px; top: 7px; left:-40px; z-index:99999; }
-                    .paylas:hover
-                    { background-color:white; color: var(--bs-body-bg); border-color: white; }
-                    .card:hover .paylas
-                    { left: 7px; opacity:1; }
-                    .card-date
-                    { height:1px; color:rgba(255,255,255,0.5); margin-top:65px; opacity:0; transition:0.3s 0.1s; }
-                    .card:hover .card-date
-                    { opacity:1; margin-top:0; }
-                    </style>
-                </div>
-                <a href="blog.php?link='.$row["link"].'" class="card-body" style="padding:16px;">
-                    <div class="card-title"><h3 style="color:#E7B761; text-shadow: 0 4px 4px black;">'.kisalt($row["baslik"],22).'</h3></div>
-                    <div class="card-text" style="width:100%; height:100%; color:rgba(255,255,255,0.6);">'.kisalt($row["metin"], 120).'</div>
-                    <a href="blog.php?link='.$row["link"].'" style="display:flex; justify-content:space-between; align-items:center; width: 94%; height: 40px; position:absolute; bottom: 10px; right: 10px;">
-                        <span><p class="card-date">Tarih: '.$row["tarih"].'</p></span>
-                        <div class="btn btn-outline-success" style="border-radius: 15px;">Devamını Oku</div>
-                    </a>
-                </a>
-            </div>
-        </div>';
-}
-?>
+                     </div>
+               </div>';
+         }
+         ?>
 
    <script>
    function delay(time) {
       return new Promise(resolve => setTimeout(resolve, time));
-   }
-
-   function kopyala() {
-      var sayfaLinki = window.location.href;
-      var link = "<?php echo $row["link"]; ?>";
-      var blog = "blog.php?link=" + link;
-
-   navigator.clipboard.writeText(sayfaLinki + blog)
-   .then(function() {
-      alert("Sayfa Linki Kopyalandı");
-   })
-   .catch(function() {
-      alert("Sayfa Linki Kopyalanamadı");
-   });
-
-   var alert = document.getElementById("alertBox");
-   alert.innerHTML = "Link Kopyalandı";
-   alert.style.opacity = "1";
-   alert.style.top = "50%";
-   delay(1300).then(() => {
-   alert.style.opacity = "0";
-   alert.style.top = "60%";
-   });
    }
    </script>
       </div>

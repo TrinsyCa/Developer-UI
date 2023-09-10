@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteRule ^yazarlar/([^/]+)$ yazarlar/index.php?isim=$1 [L]
-#   RewriteCond %{HTTP_HOST} ^oislamoglu.bistbilisim.com [NC, OR]
-#   RewriteCond %{HTTP_HOST} ^www.oislamoglu.bistbilisim.com [NC]
-#   RewriteRule ^(.*)$ https://oislamoglu.bistbilisim.com/$1 [L,R=301,NC]*
+
+RewriteRule ^p/([^/]+)$ blog.php?link=$1 [L]
+RewriteRule ^yazar/([^/]+)$ yazar.php?link=$1 [L]
+RewriteRule ^admin/edittext/blog/([^/]+)$ admin/edittext/index.php?id=$1 [L]

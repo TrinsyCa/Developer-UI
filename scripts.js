@@ -1,46 +1,23 @@
 const preloader = document.getElementById("preloader");
 const preloaderimg = document.getElementById("preloaderimg");
+
+function delay(time) {
+   return new Promise(resolve => setTimeout(resolve, time));
+ }
+delay(400).then(() => preloaderimg.style.opacity = "1");
 window.addEventListener('load', function()
 {
-   preloaderimg.style.marginTop = "1200px";
-   preloaderimg.style.width = "220px";
-   preloader.style.opacity = "0";
+   delay(700).then(() => preloaderimg.style.marginTop = "1200px");
+   delay(700).then(() => preloaderimg.style.width = "220px");
+   delay(700).then(() => preloader.style.opacity = "0");
 });
 
-const cursor = document.querySelector('.cursor');
-//var timeout;
 const listitems = document.querySelectorAll('a');
-
-//Mouse takibi
-if(window.screen.width >= 620)
-{
-   document.addEventListener('mousemove' , (e) =>
-   {
-   let x = e.pageX;
-   let y = e.pageY;
-
-   cursor.style.top = y + "px";
-   cursor.style.left = x + "px";
-   cursor.style.display = 'block';
-   //mouse durduruldu efekti
-   /*function mouseStopped()
-   {
-      cursor.style.display = 'none';
-   }
-   clearTimeout(timeout);
-   timeout = setTimeout(mouseStopped , 1000);*/
-   });
-}
-//mouseout efekti
-document.addEventListener('mouseout' , () =>
-{
-   cursor.style.display = 'none';
-});
 
 //animasyon
 listitems.forEach((item,index) =>
 {
-   item.style.animation = `moveup 0.6s ease-in-out forwards ${index / 5}s`;
+   delay(1300).then(() => item.style.animation = `moveup 0.6s ease-in-out forwards ${index / 5}s`);
 })
 
 var studiebtn = document.getElementById("studiebtn");

@@ -29,11 +29,11 @@
             padding: 0 5px;
             border-radius: 8px;
          }
-         #edit-btn
+         .edit-btn
          {
             background:#0079FF;
          }
-         #trash-btn
+         .trash-btn
          {
             background:red;
          }
@@ -122,6 +122,8 @@
                      <td></td>
                      <td style="padding-left: 15px; font-size: 24px;">Başlık</td>
                      <td style="text-align:center; font-size: 24px;">Kategori</td>
+                     <td style="text-align:center; font-size: 24px;">Görüntülenme</td>
+                     <td style="text-align:center; font-size: 24px;">Yazar</td>
                      <td style="text-align:center; font-size: 24px;">Tarih</td>
                      <td style="text-align:center; width: 150px; font-size:24px;">Sil / Düzenle</td>
                      <td></td>
@@ -147,14 +149,20 @@
                            {
                               $row["tarih"] = '<i style="color:grey;" class="fa-solid fa-question"></i>';
                            }
+                           if($row["view"] == null)
+                           {
+                              $row["view"] = '<i style="color:grey;" class="fa-solid fa-x"></i>';
+                           }
                            echo '<tr>
                                     <td></td>
-                                    <td><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["baslik"].'</a></td>
-                                    <td style="text-align:center;"><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["kategori"].'</a></td>
-                                    <td style="text-align:center;"><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["tarih"].'</a></td>
+                                    <td><a href="../../p/'.$row["link"].'"target="_blank">'.$row["baslik"].'</a></td>
+                                    <td style="text-align:center;"><a href="../../p/'.$row["link"].'"target="_blank">'.$row["kategori"].'</a></td>
+                                    <td style="text-align:center;"><a href="../../p/'.$row["link"].'"target="_blank">'.$row["view"].'</a></td>
+                                    <td style="text-align:center;"><a href="../../p/'.$row["link"].'"target="_blank">'.$row["yazar_adsoyad"].'</a></td>
+                                    <td style="text-align:center;"><a href="../../p/'.$row["link"].'"target="_blank">'.$row["tarih"].'</a></td>
                                     <td style="text-align:center;">
-                                    <button onclick="duzenle(sutunId)">Düzenle</button>
-                                       <button id="trash-btn" class="do-btn" onclick="sil('.$row["id"].');"><i class="fa-solid fa-trash"></i></button>
+                                       <button class="do-btn edit-btn" onclick="duzenle(\''.$row["id"].'\')"><i class="fa-solid fa-pen-to-square"></i></button>
+                                       <button class="do-btn trash-btn" onclick="sil('.$row["id"].', \''.$row["baslik"].'\' , \''.kisalt($row["baslik"] , 30).'\')"><i class="fa-solid fa-trash"></i></button>
                                     </td>
                                     <td></td>
                                  </tr>';
@@ -168,6 +176,7 @@
                      <td></td>
                      <td></td>
                      <td></td>
+                     <td></td>
                   </tr>
                </table>
             </div>
@@ -175,57 +184,33 @@
       </div>
    </div>
    <script>
-      var sutunId = 123;
-      function sil(sutunId) {
-       // AJAX isteği gönder
-       $.post("sil.php", { sutunId: sutunId })
-         .done(function(response) {
-            // Silme işlemi başarılı olduğunda sütunu tablodan kaldır
-            if (response === "Sütun başarıyla silindi") {
-               // Sütunu hedefleyen seçiciyi kullanarak satırı kaldır
-               $("tr[data-sutunId='" + sutunId + "']").remove();
-            }
-            console.log(response);
 
-            location.reload();
-         })
-         .fail(function() {
-            console.log("Sütün silinirken bir hata oluştu");
-         });
+      function sil(sutunId,haber_baslik,haber_baslik_short) {
+         // Silmek istediğine emin misin sorusunu göster
+         if (confirm('"'+ haber_baslik_short+ '"' + " Adlı Bloğu silmek istediğinize emin misiniz?")) {
+            // AJAX isteği gönder
+            $.post("sil.php", { sutunId: sutunId })
+               .done(function(response) {
+                  // Silme işlemi başarılı olduğunda sütunu tablodan kaldır
+                  if (response === "Sütun başarıyla silindi") {
+                     // Sütunu hedefleyen seçiciyi kullanarak satırı kaldır
+                     $("tr[data-sutunId='" + sutunId + "']").remove();
+                  }
+                  console.log(response);
+
+                  location.reload();
+               })
+               .fail(function() {
+                  console.log("Sütün silinirken bir hata oluştu");
+               });
+         }
       }
       
 
-      function duzenle(sutunId) {
-         var baslik = prompt("Başlık girin:");
-         var metin = prompt("Metin girin:");
-         var resim = prompt("Resim URL'si girin:");
-         var kategori = prompt("Kategori girin:");
-         var yazar = prompt("Yazar girin:");
-         var yazarAdSoyad = prompt("Yazar adı ve soyadı girin:");
-         var tarih = prompt("Tarih girin:");
-
-         // AJAX isteği gönder
-         $.post("duzenle.php", {
-               sutunId: sutunId,
-               baslik: baslik,
-               metin: metin,
-               resim: resim,
-               kategori: kategori,
-               yazar: yazar,
-               yazarAdSoyad: yazarAdSoyad,
-               tarih: tarih
-            })
-            .done(function(response) {
-               // İşlem başarılı olduğunda konsola mesajı yazdır
-               console.log(response);
-
-               // Sayfayı yenile
-               location.reload();
-            })
-            .fail(function() {
-               console.log("Hata oluştu");
-            });
-         }
+   function duzenle(id)
+   {
+      window.location.href = "../edittext/blog/" + id;
+   }
    </script>
    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script src="https://kit.fontawesome.com/b40b33d160.js" crossorigin="anonymous"></script>

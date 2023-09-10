@@ -93,7 +93,7 @@
                   @$metin = htmlspecialchars(@$_POST["metin"]);
                   @$resim = htmlspecialchars(@$_POST["resim"]);
                   @$kategori = htmlspecialchars(@$_POST["kategori"]);
-                  @$link = permalink(@$_POST["baslik"])."/about=".permalink(@$_POST["kategori"]);
+                  @$link = permalink(@$_POST["baslik"]);
                   @$yazar = @$_SESSION["isim"];
                   @$yazaradsoyad = @$_SESSION["adsoyad"];
 
@@ -131,8 +131,11 @@
                <strong>Başlık: </strong>
                <input type="text" name="baslik" class="form-control">
                <br>
-               <strong>Yazı: </strong>
-               <textarea name="metin" id="" cols="30" rows="10" class="form-control"></textarea>
+               <div class="inputBx">
+                  <strong>Yazı: </strong>
+                  <a onclick="code()"><i class="fa-solid fa-code"></i></a>
+               </div>
+               <textarea name="metin" id="metin" cols="30" rows="10" class="form-control"></textarea>
                <br>
                <strong>Resim Linki: </strong>
                <input type="text" name="resim" class="form-control">
@@ -188,5 +191,12 @@
 </div>
 <script src="https://kit.fontawesome.com/b40b33d160.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script>
+   function code()
+   {
+      var metin = document.getElementById("metin");
+      metin.value += "`` ``";
+   }
+</script>
 </body>
 </html>

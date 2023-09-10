@@ -134,7 +134,7 @@
   </div>
 </nav>
 <div class="wrapper">
-   <div id="alert" class="alert alert-dark" role="alert"></div>
+   <div id="alertBox" class="alert alert-dark" role="alert"></div>
    <style>
       .alert
       {
@@ -230,7 +230,7 @@
                         .paylas
                         { padding: 8px 10px; border-radius: 50%; background: transparent; border:3px solid rgba(180,180,180); color: rgba(180,180,180); transition: 0.3s; }
                         .paylas:hover 
-                        { background-color:white; color: var(--bs-body-bg);; border-color: white; }
+                        { background-color:white; color: var(--bs-body-bg); border-color: white; }
                      </style>
                      <script>
                         function delay(time) 
@@ -247,7 +247,7 @@
                            .catch(function() {
                               alert("Sayfa Linki Kopyalanamadı");
                            });
-                           var alert = document.getElementById("alert");
+                           var alert = document.getElementById("alertBox");
                            alert.innerHTML = "Link Kopyalandı";
                            alert.style.opacity = "1";
                            alert.style.top = "50%";

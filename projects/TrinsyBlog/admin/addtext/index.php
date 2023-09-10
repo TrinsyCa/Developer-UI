@@ -94,7 +94,8 @@
                   @$resim = htmlspecialchars(@$_POST["resim"]);
                   @$kategori = htmlspecialchars(@$_POST["kategori"]);
                   @$link = permalink(@$_POST["baslik"])."/about=".permalink(@$_POST["kategori"]);
-                  @$yazar = @$_SESSION["adsoyad"];
+                  @$yazar = @$_SESSION["isim"];
+                  @$yazaradsoyad = @$_SESSION["adsoyad"];
 
                   if(empty(@$baslik) || empty(@$metin) || empty(@$resim) || empty(@$kategori))
                   {
@@ -103,14 +104,15 @@
                   }
                   else
                   {
-                     $veriekle = $db->prepare("INSERT INTO bloglarim SET baslik = ? , metin = ? , link = ? , resim = ? , kategori = ? , yazar = ?");
+                     $veriekle = $db->prepare("INSERT INTO bloglarim SET baslik = ? , metin = ? , link = ? , resim = ? , kategori = ? , yazar = ? , yazar_adsoyad = ?");
                      $veriekle -> execute([
                         @$baslik,
                         @$metin,
                         @$link,
                         @$resim,
                         @$kategori,
-                        @$yazar
+                        @$yazar,
+                        @$yazaradsoyad
                      ]);
                      if($veriekle)
                      {

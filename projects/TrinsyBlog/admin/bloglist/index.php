@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html lang="tr" data-bs-theme="dark">
    <head>
-       <meta charset="UTF-8">
        <meta http-equiv="X-UA-Compatible" content="IE=edge">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <title>Blog List - Admin Paneli | TrinsyBlog</title>
@@ -24,6 +23,19 @@
          {
             text-decoration: none;
             color:white;
+         }
+         .do-btn
+         {
+            padding: 0 5px;
+            border-radius: 8px;
+         }
+         #edit-btn
+         {
+            background:#0079FF;
+         }
+         #trash-btn
+         {
+            background:red;
          }
        </style>
        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
@@ -110,7 +122,8 @@
                      <td></td>
                      <td style="padding-left: 15px; font-size: 24px;">Başlık</td>
                      <td style="text-align:center; font-size: 24px;">Kategori</td>
-                     <td style="text-align:center; width:161px; font-size: 24px;">Tarih</td>
+                     <td style="text-align:center; font-size: 24px;">Tarih</td>
+                     <td style="text-align:center; width: 150px; font-size:24px;">Sil / Düzenle</td>
                      <td></td>
                   </tr>
                   <?php
@@ -138,7 +151,11 @@
                                     <td></td>
                                     <td><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["baslik"].'</a></td>
                                     <td style="text-align:center;"><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["kategori"].'</a></td>
-                                    <td style="text-align:end;"><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["tarih"].'</a></td>
+                                    <td style="text-align:center;"><a href="../../blog.php?link='.$row["link"].'"target="_blank">'.$row["tarih"].'</a></td>
+                                    <td style="text-align:center;">
+                                    <button onclick="duzenle(sutunId)">Düzenle</button>
+                                       <button id="trash-btn" class="do-btn" onclick="sil('.$row["id"].');"><i class="fa-solid fa-trash"></i></button>
+                                    </td>
                                     <td></td>
                                  </tr>';
                         }
@@ -150,12 +167,67 @@
                      <td></td>
                      <td></td>
                      <td></td>
+                     <td></td>
                   </tr>
                </table>
             </div>
          </div>
       </div>
    </div>
+   <script>
+      var sutunId = 123;
+      function sil(sutunId) {
+       // AJAX isteği gönder
+       $.post("sil.php", { sutunId: sutunId })
+         .done(function(response) {
+            // Silme işlemi başarılı olduğunda sütunu tablodan kaldır
+            if (response === "Sütun başarıyla silindi") {
+               // Sütunu hedefleyen seçiciyi kullanarak satırı kaldır
+               $("tr[data-sutunId='" + sutunId + "']").remove();
+            }
+            console.log(response);
+
+            location.reload();
+         })
+         .fail(function() {
+            console.log("Sütün silinirken bir hata oluştu");
+         });
+      }
+      
+
+      function duzenle(sutunId) {
+         var baslik = prompt("Başlık girin:");
+         var metin = prompt("Metin girin:");
+         var resim = prompt("Resim URL'si girin:");
+         var kategori = prompt("Kategori girin:");
+         var yazar = prompt("Yazar girin:");
+         var yazarAdSoyad = prompt("Yazar adı ve soyadı girin:");
+         var tarih = prompt("Tarih girin:");
+
+         // AJAX isteği gönder
+         $.post("duzenle.php", {
+               sutunId: sutunId,
+               baslik: baslik,
+               metin: metin,
+               resim: resim,
+               kategori: kategori,
+               yazar: yazar,
+               yazarAdSoyad: yazarAdSoyad,
+               tarih: tarih
+            })
+            .done(function(response) {
+               // İşlem başarılı olduğunda konsola mesajı yazdır
+               console.log(response);
+
+               // Sayfayı yenile
+               location.reload();
+            })
+            .fail(function() {
+               console.log("Hata oluştu");
+            });
+         }
+   </script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
    <script src="https://kit.fontawesome.com/b40b33d160.js" crossorigin="anonymous"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
    </body>

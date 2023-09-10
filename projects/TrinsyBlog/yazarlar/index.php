@@ -5,23 +5,30 @@
    session_start();
 
    echo '<p id="href" name="href"></p>';
-   @$link = $_GET["href"];
-
    $data = $db->prepare("SELECT * FROM admin WHERE isim = ?");
-   $data->execute([
-      @$link
-   ]);
-   @$_data  = $data->fetch(PDO::FETCH_ASSOC);
+   $data->execute([$isim]);
+   $data = $db->prepare("SELECT * FROM admin WHERE isim = ?");
+   if ($data->execute([$isim])) {
+      $_data = $data->fetch(PDO::FETCH_ASSOC);
+   } else {
+      // Hata durumunda işleme geç
+      $errorInfo = $data->errorInfo();
+      // Hata bilgilerini kullanarak sorunu tespit et veya gerekli işlemleri yap
+      // Örneğin:
+      echo "Veritabanı hatası: " . $errorInfo[2];
+   }
+
+$data = $db->prepare("SELECT * FROM admin WHERE isim = ?");
+if ($data->execute([$isim])) {
+    $_data = $data->fetch(PDO::FETCH_ASSOC);
+} else {
+    // Hata durumunda işleme geç
+    $errorInfo = $data->errorInfo();
+    // Hata bilgilerini kullanarak sorunu tespit et veya gerekli işlemleri yap
+    // Örneğin:
+    echo "Veritabanı hatası: " . $errorInfo[2];
+}
 ?>
-<script>
-   var url = document.getElementById("href");
-   var newURL= window.location.pathname;
-   console.log(newURL);
-   var splitURL=newURL.toString().split("/");
-   console.log(splitURL);
-   console.log(splitURL[5]);
-   url.innerHTML = splitURL[5];
-</script>
 <!DOCTYPE html>
 <html lang="tr" data-bs-theme="dark">
 <head>
